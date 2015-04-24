@@ -1,16 +1,21 @@
 # Template build file 'freetype'.
 pkgname=freetype
 version=2.5.5
-revision=2
+revision=3
 build_style=gnu-configure
 hostmakedepends="pkg-config"
-makedepends="zlib-devel bzip2-devel libpng-devel"
+makedepends="zlib-devel bzip2-devel libpng-devel harfbuzz-devel"
+patch_args="-Np1"
 short_desc="Font rendering engine and library API"
-maintainer="Juan RP <xtraeme@voidlinux.eu>"
+maintainer="Robert F. Nash <robert@robertnash.net>"
 homepage="http://www.freetype.org/"
 license="GPL-2"
 distfiles="${SOURCEFORGE_SITE}/$pkgname/$pkgname-$version.tar.bz2"
 checksum=387bcc4b780b12484aa2ec9f7db1a55d8286eb5639f45fbc0fbba7a4e5a1afb9
+
+pkg_install() {
+    vinstall $FILESDIR/infinality-settings 755 /etc/X11/xinit/xinitrc.d
+}
 
 freetype-devel_package() {
 	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
